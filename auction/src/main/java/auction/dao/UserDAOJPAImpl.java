@@ -6,12 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 public class UserDAOJPAImpl implements UserDAO {
-
-    @PersistenceContext
-    EntityManager users;
+    EntityManagerFactory ef = Persistence.createEntityManagerFactory("db");
+    EntityManager users = ef.createEntityManager();
 
     public UserDAOJPAImpl() {
         //users = new HashMap<String, User>();
@@ -28,7 +30,9 @@ public class UserDAOJPAImpl implements UserDAO {
          if (findByEmail(user.getEmail()) != null) {
             throw new EntityExistsException();
         }
+        users.getTransaction().begin();
         users.persist(user);
+        users.getTransaction().commit();
     }
 
     @Override
@@ -42,7 +46,7 @@ public class UserDAOJPAImpl implements UserDAO {
 
     @Override
     public List<User> findAll() {
-        return users.createQuery("SELECT * FROM USERS").getResultList();
+        return users.createQuery("SELECT u FROM User u").getResultList();
     }
 
     @Override

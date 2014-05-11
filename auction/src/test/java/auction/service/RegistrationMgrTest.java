@@ -21,7 +21,6 @@ public class RegistrationMgrTest {
     @Test
     public void registerUser() {
         User user1 = registrationMgr.registerUser("xxx1@yyy");
-        System.out.println(user1);
         assertTrue(user1.getEmail().equals("xxx1@yyy"));
         User user2 = registrationMgr.registerUser("xxx2@yyy2");
         assertTrue(user2.getEmail().equals("xxx2@yyy2"));

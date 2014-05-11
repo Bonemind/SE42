@@ -12,7 +12,6 @@ public class RegistrationMgr {
 
     public RegistrationMgr() {
         userDAO = new UserDAOJPAImpl();
-        System.out.println(userDAO);
     }
 
     /**
