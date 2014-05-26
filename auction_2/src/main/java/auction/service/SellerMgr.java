@@ -34,6 +34,7 @@ public class SellerMgr {
      */
     public boolean revokeItem(Item item) {
         if (item.getHighestBid() == null) {
+            
             itemDAO.remove(item);
             return true;
         }

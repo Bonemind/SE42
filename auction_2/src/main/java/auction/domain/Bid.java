@@ -21,7 +21,7 @@ public class Bid {
     @Column
     private FontysTime time;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private User buyer;
 
     @Column
@@ -31,7 +31,8 @@ public class Bid {
     }
 
     public Bid(User buyer, Money amount) {
-        //TODO
+        this.buyer = buyer;
+        this.amount = amount;
     }
 
     public FontysTime getTime() {

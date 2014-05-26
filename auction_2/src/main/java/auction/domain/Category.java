@@ -16,7 +16,7 @@ public class Category {
     @OneToMany(mappedBy = "category", cascade = CascadeType.PERSIST)
     private List<Item> items = new ArrayList<>();
 
-    private Category() {
+    public Category() {
         description = "undefined";
     }
 

@@ -32,7 +32,7 @@ public class AuctionMgr  {
      * @return een lijst met items met @desciption. Eventueel lege lijst.
      */
     public List<Item> findItemByDescription(String description) {
-        return itemDAO.findAll();
+        return itemDAO.findByDescription(description);
     }
 
     /**

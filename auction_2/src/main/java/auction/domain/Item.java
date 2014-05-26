@@ -7,6 +7,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.CascadeType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.OneToOne;
 
 /**
  * Contains an item entity
@@ -18,18 +20,19 @@ public class Item implements Comparable {
      * The id of this item
      */
     @Id
+    @GeneratedValue
     private Long id;
     
     /**
      * The seller of this item
      */
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private User seller;
     
     /**
      * The category this item falls in
      */
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Category category;
     
     /**
@@ -41,7 +44,7 @@ public class Item implements Comparable {
     /**
      * The highest bid that was placed on this item
      */
-    @JoinColumn
+    @OneToOne
     private Bid highest;
 
     public Item() {
