@@ -12,6 +12,8 @@ import org.junit.Test;
 import auction.domain.Category;
 import auction.domain.Item;
 import auction.domain.User;
+import javax.persistence.Persistence;
+import util.DatabaseCleaner;
 
 public class SellerMgrTest {
 
@@ -21,9 +23,12 @@ public class SellerMgrTest {
 
     @Before
     public void setUp() throws Exception {
+        System.out.print("before seller");
         registrationMgr = new RegistrationMgr();
         auctionMgr = new AuctionMgr();
         sellerMgr = new SellerMgr();
+        DatabaseCleaner dc = new DatabaseCleaner(Persistence.createEntityManagerFactory("db").createEntityManager());
+        dc.clean();
     }
 
     /**

@@ -1,13 +1,18 @@
 package auction.domain;
 
-import javax.persistence.Id;
-import javax.persistence.Column;
 import nl.fontys.util.Money;
+import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.CascadeType;
 
 /**
  * Contains an item entity
  * @author Subhi
  */
+@Entity
 public class Item implements Comparable {
     /**
      * The id of this item
@@ -18,13 +23,13 @@ public class Item implements Comparable {
     /**
      * The seller of this item
      */
-    @Column
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private User seller;
     
     /**
      * The category this item falls in
      */
-    @Column
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Category category;
     
     /**
@@ -36,8 +41,11 @@ public class Item implements Comparable {
     /**
      * The highest bid that was placed on this item
      */
-    @Column
+    @JoinColumn
     private Bid highest;
+
+    public Item() {
+    }
 
     /**
      * Item constructor

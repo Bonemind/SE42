@@ -17,7 +17,7 @@ public class JPARegistrationMgrTest {
 
     @Before
     public void setUp() throws Exception {
-        System.out.print("before");
+        System.out.print("before jpareg");
         registrationMgr = new RegistrationMgr();
         DatabaseCleaner dc = new DatabaseCleaner(Persistence.createEntityManagerFactory("db").createEntityManager());
         dc.clean();

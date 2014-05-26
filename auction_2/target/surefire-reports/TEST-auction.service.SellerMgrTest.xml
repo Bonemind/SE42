@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="1" time="0.061" errors="1" skipped="0" tests="2" name="auction.service.SellerMgrTest">
+<testsuite failures="0" time="0.12" errors="2" skipped="0" tests="2" name="auction.service.SellerMgrTest">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64"/>
@@ -41,7 +41,7 @@
     <property name="java.vm.specification.version" value="1.7"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="/usr/lib/jvm/java-7-openjdk-amd64/jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher test"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher clean test"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="en"/>
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
@@ -58,9 +58,22 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0.017" classname="auction.service.SellerMgrTest" name="testOfferItem">
-    <error type="java.lang.NullPointerException">java.lang.NullPointerException
-	at auction.service.SellerMgrTest.testOfferItem(SellerMgrTest.java:39)
+  <testcase time="0.061" classname="auction.service.SellerMgrTest" name="testOfferItem">
+    <error message="Exception [EclipseLink-4002] (Eclipse Persistence Services - 2.5.0.v20130507-3faac2b): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Duplicate entry &apos;xx@nl&apos; for key &apos;PRIMARY&apos;
+Error Code: 1062
+Call: INSERT INTO USER (EMAIL) VALUES (?)
+	bind =&gt; [xx@nl]
+Query: InsertObjectQuery(auction.domain.User@1f7ae17e)" type="javax.persistence.RollbackException">javax.persistence.RollbackException: Exception [EclipseLink-4002] (Eclipse Persistence Services - 2.5.0.v20130507-3faac2b): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Duplicate entry &apos;xx@nl&apos; for key &apos;PRIMARY&apos;
+Error Code: 1062
+Call: INSERT INTO USER (EMAIL) VALUES (?)
+	bind =&gt; [xx@nl]
+Query: InsertObjectQuery(auction.domain.User@1f7ae17e)
+	at org.eclipse.persistence.internal.jpa.transaction.EntityTransactionImpl.commit(EntityTransactionImpl.java:157)
+	at auction.dao.ItemDAOJPAImpl.create(ItemDAOJPAImpl.java:31)
+	at auction.service.SellerMgr.offerItem(SellerMgr.java:26)
+	at auction.service.SellerMgrTest.testOfferItem(SellerMgrTest.java:43)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -91,14 +104,93 @@
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
+Caused by: Exception [EclipseLink-4002] (Eclipse Persistence Services - 2.5.0.v20130507-3faac2b): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Duplicate entry &apos;xx@nl&apos; for key &apos;PRIMARY&apos;
+Error Code: 1062
+Call: INSERT INTO USER (EMAIL) VALUES (?)
+	bind =&gt; [xx@nl]
+Query: InsertObjectQuery(auction.domain.User@1f7ae17e)
+	at org.eclipse.persistence.exceptions.DatabaseException.sqlException(DatabaseException.java:331)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeDirectNoSelect(DatabaseAccessor.java:895)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeNoSelect(DatabaseAccessor.java:957)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.basicExecuteCall(DatabaseAccessor.java:630)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeCall(DatabaseAccessor.java:558)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.basicExecuteCall(AbstractSession.java:1995)
+	at org.eclipse.persistence.sessions.server.ClientSession.executeCall(ClientSession.java:296)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:242)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:228)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.insertObject(DatasourceCallQueryMechanism.java:377)
+	at org.eclipse.persistence.internal.queries.StatementQueryMechanism.insertObject(StatementQueryMechanism.java:165)
+	at org.eclipse.persistence.internal.queries.StatementQueryMechanism.insertObject(StatementQueryMechanism.java:180)
+	at org.eclipse.persistence.internal.queries.DatabaseQueryMechanism.insertObjectForWrite(DatabaseQueryMechanism.java:485)
+	at org.eclipse.persistence.queries.InsertObjectQuery.executeCommit(InsertObjectQuery.java:80)
+	at org.eclipse.persistence.queries.InsertObjectQuery.executeCommitWithChangeSet(InsertObjectQuery.java:90)
+	at org.eclipse.persistence.internal.queries.DatabaseQueryMechanism.executeWriteWithChangeSet(DatabaseQueryMechanism.java:300)
+	at org.eclipse.persistence.queries.WriteObjectQuery.executeDatabaseQuery(WriteObjectQuery.java:58)
+	at org.eclipse.persistence.queries.DatabaseQuery.execute(DatabaseQuery.java:899)
+	at org.eclipse.persistence.queries.DatabaseQuery.executeInUnitOfWork(DatabaseQuery.java:798)
+	at org.eclipse.persistence.queries.ObjectLevelModifyQuery.executeInUnitOfWorkObjectLevelModifyQuery(ObjectLevelModifyQuery.java:108)
+	at org.eclipse.persistence.queries.ObjectLevelModifyQuery.executeInUnitOfWork(ObjectLevelModifyQuery.java:85)
+	at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.internalExecuteQuery(UnitOfWorkImpl.java:2894)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1797)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1779)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1730)
+	at org.eclipse.persistence.internal.sessions.CommitManager.commitNewObjectsForClassWithChangeSet(CommitManager.java:226)
+	at org.eclipse.persistence.internal.sessions.CommitManager.commitAllObjectsForClassWithChangeSet(CommitManager.java:193)
+	at org.eclipse.persistence.internal.sessions.CommitManager.commitAllObjectsWithChangeSet(CommitManager.java:138)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.writeAllObjectsWithChangeSet(AbstractSession.java:4200)
+	at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.commitToDatabase(UnitOfWorkImpl.java:1439)
+	at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.commitToDatabaseWithChangeSet(UnitOfWorkImpl.java:1529)
+	at org.eclipse.persistence.internal.sessions.RepeatableWriteUnitOfWork.commitRootUnitOfWork(RepeatableWriteUnitOfWork.java:277)
+	at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.commitAndResume(UnitOfWorkImpl.java:1167)
+	at org.eclipse.persistence.internal.jpa.transaction.EntityTransactionImpl.commit(EntityTransactionImpl.java:132)
+	... 33 more
+Caused by: com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Duplicate entry &apos;xx@nl&apos; for key &apos;PRIMARY&apos;
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:931)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:1573)
+	at com.mysql.jdbc.ServerPreparedStatement.serverExecute(ServerPreparedStatement.java:1169)
+	at com.mysql.jdbc.ServerPreparedStatement.executeInternal(ServerPreparedStatement.java:693)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:1404)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:1318)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:1303)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeDirectNoSelect(DatabaseAccessor.java:885)
+	... 65 more
 </error>
+    <system-out>before seller[EL Fine]: sql: 2014-05-26 10:58:32.13--ClientSession(113829934)--Connection(861197352)--Thread(Thread[main,5,main])--DELETE FROM USER
+[EL Fine]: sql: 2014-05-26 10:58:32.14--ServerSession(368074760)--Connection(861197352)--Thread(Thread[main,5,main])--SELECT EMAIL FROM USER WHERE (EMAIL = ?)
+	bind =&gt; [xx@nl]
+[EL Fine]: sql: 2014-05-26 10:58:32.143--ServerSession(368074760)--Connection(861197352)--Thread(Thread[main,5,main])--SELECT EMAIL FROM USER WHERE (EMAIL = ?)
+	bind =&gt; [xx@nl]
+[EL Fine]: sql: 2014-05-26 10:58:32.144--ClientSession(1564270525)--Connection(861197352)--Thread(Thread[main,5,main])--INSERT INTO USER (EMAIL) VALUES (?)
+	bind =&gt; [xx@nl]
+[EL Fine]: sql: 2014-05-26 10:58:32.154--ClientSession(1082885218)--Connection(861197352)--Thread(Thread[main,5,main])--INSERT INTO USER (EMAIL) VALUES (?)
+	bind =&gt; [xx@nl]
+[EL Fine]: sql: 2014-05-26 10:58:32.156--ClientSession(1082885218)--Thread(Thread[main,5,main])--SELECT 1
+[EL Warning]: 2014-05-26 10:58:32.157--UnitOfWork(101208316)--Thread(Thread[main,5,main])--Exception [EclipseLink-4002] (Eclipse Persistence Services - 2.5.0.v20130507-3faac2b): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Duplicate entry &apos;xx@nl&apos; for key &apos;PRIMARY&apos;
+Error Code: 1062
+Call: INSERT INTO USER (EMAIL) VALUES (?)
+	bind =&gt; [xx@nl]
+Query: InsertObjectQuery(auction.domain.User@1f7ae17e)
+</system-out>
   </testcase>
-  <testcase time="0.031" classname="auction.service.SellerMgrTest" name="testRevokeItem">
-    <failure type="java.lang.AssertionError">java.lang.AssertionError
-	at org.junit.Assert.fail(Assert.java:86)
-	at org.junit.Assert.assertTrue(Assert.java:41)
-	at org.junit.Assert.assertTrue(Assert.java:52)
-	at auction.service.SellerMgrTest.testRevokeItem(SellerMgrTest.java:59)
+  <testcase time="0.057" classname="auction.service.SellerMgrTest" name="testRevokeItem">
+    <error message="Exception [EclipseLink-4002] (Eclipse Persistence Services - 2.5.0.v20130507-3faac2b): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Duplicate entry &apos;sel@nl&apos; for key &apos;PRIMARY&apos;
+Error Code: 1062
+Call: INSERT INTO USER (EMAIL) VALUES (?)
+	bind =&gt; [sel@nl]
+Query: InsertObjectQuery(auction.domain.User@2acd47cb)" type="javax.persistence.RollbackException">javax.persistence.RollbackException: Exception [EclipseLink-4002] (Eclipse Persistence Services - 2.5.0.v20130507-3faac2b): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Duplicate entry &apos;sel@nl&apos; for key &apos;PRIMARY&apos;
+Error Code: 1062
+Call: INSERT INTO USER (EMAIL) VALUES (?)
+	bind =&gt; [sel@nl]
+Query: InsertObjectQuery(auction.domain.User@2acd47cb)
+	at org.eclipse.persistence.internal.jpa.transaction.EntityTransactionImpl.commit(EntityTransactionImpl.java:157)
+	at auction.dao.ItemDAOJPAImpl.create(ItemDAOJPAImpl.java:31)
+	at auction.service.SellerMgr.offerItem(SellerMgr.java:26)
+	at auction.service.SellerMgrTest.testRevokeItem(SellerMgrTest.java:62)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -129,6 +221,81 @@
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-</failure>
+Caused by: Exception [EclipseLink-4002] (Eclipse Persistence Services - 2.5.0.v20130507-3faac2b): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Duplicate entry &apos;sel@nl&apos; for key &apos;PRIMARY&apos;
+Error Code: 1062
+Call: INSERT INTO USER (EMAIL) VALUES (?)
+	bind =&gt; [sel@nl]
+Query: InsertObjectQuery(auction.domain.User@2acd47cb)
+	at org.eclipse.persistence.exceptions.DatabaseException.sqlException(DatabaseException.java:331)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeDirectNoSelect(DatabaseAccessor.java:895)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeNoSelect(DatabaseAccessor.java:957)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.basicExecuteCall(DatabaseAccessor.java:630)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeCall(DatabaseAccessor.java:558)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.basicExecuteCall(AbstractSession.java:1995)
+	at org.eclipse.persistence.sessions.server.ClientSession.executeCall(ClientSession.java:296)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:242)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:228)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.insertObject(DatasourceCallQueryMechanism.java:377)
+	at org.eclipse.persistence.internal.queries.StatementQueryMechanism.insertObject(StatementQueryMechanism.java:165)
+	at org.eclipse.persistence.internal.queries.StatementQueryMechanism.insertObject(StatementQueryMechanism.java:180)
+	at org.eclipse.persistence.internal.queries.DatabaseQueryMechanism.insertObjectForWrite(DatabaseQueryMechanism.java:485)
+	at org.eclipse.persistence.queries.InsertObjectQuery.executeCommit(InsertObjectQuery.java:80)
+	at org.eclipse.persistence.queries.InsertObjectQuery.executeCommitWithChangeSet(InsertObjectQuery.java:90)
+	at org.eclipse.persistence.internal.queries.DatabaseQueryMechanism.executeWriteWithChangeSet(DatabaseQueryMechanism.java:300)
+	at org.eclipse.persistence.queries.WriteObjectQuery.executeDatabaseQuery(WriteObjectQuery.java:58)
+	at org.eclipse.persistence.queries.DatabaseQuery.execute(DatabaseQuery.java:899)
+	at org.eclipse.persistence.queries.DatabaseQuery.executeInUnitOfWork(DatabaseQuery.java:798)
+	at org.eclipse.persistence.queries.ObjectLevelModifyQuery.executeInUnitOfWorkObjectLevelModifyQuery(ObjectLevelModifyQuery.java:108)
+	at org.eclipse.persistence.queries.ObjectLevelModifyQuery.executeInUnitOfWork(ObjectLevelModifyQuery.java:85)
+	at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.internalExecuteQuery(UnitOfWorkImpl.java:2894)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1797)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1779)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1730)
+	at org.eclipse.persistence.internal.sessions.CommitManager.commitNewObjectsForClassWithChangeSet(CommitManager.java:226)
+	at org.eclipse.persistence.internal.sessions.CommitManager.commitAllObjectsForClassWithChangeSet(CommitManager.java:193)
+	at org.eclipse.persistence.internal.sessions.CommitManager.commitAllObjectsWithChangeSet(CommitManager.java:138)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.writeAllObjectsWithChangeSet(AbstractSession.java:4200)
+	at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.commitToDatabase(UnitOfWorkImpl.java:1439)
+	at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.commitToDatabaseWithChangeSet(UnitOfWorkImpl.java:1529)
+	at org.eclipse.persistence.internal.sessions.RepeatableWriteUnitOfWork.commitRootUnitOfWork(RepeatableWriteUnitOfWork.java:277)
+	at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.commitAndResume(UnitOfWorkImpl.java:1167)
+	at org.eclipse.persistence.internal.jpa.transaction.EntityTransactionImpl.commit(EntityTransactionImpl.java:132)
+	... 33 more
+Caused by: com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Duplicate entry &apos;sel@nl&apos; for key &apos;PRIMARY&apos;
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:931)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:1573)
+	at com.mysql.jdbc.ServerPreparedStatement.serverExecute(ServerPreparedStatement.java:1169)
+	at com.mysql.jdbc.ServerPreparedStatement.executeInternal(ServerPreparedStatement.java:693)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:1404)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:1318)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:1303)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeDirectNoSelect(DatabaseAccessor.java:885)
+	... 65 more
+</error>
+    <system-out>before seller[EL Fine]: sql: 2014-05-26 10:58:32.194--ClientSession(643334753)--Connection(861197352)--Thread(Thread[main,5,main])--DELETE FROM USER
+[EL Fine]: sql: 2014-05-26 10:58:32.199--ServerSession(368074760)--Connection(861197352)--Thread(Thread[main,5,main])--SELECT EMAIL FROM USER WHERE (EMAIL = ?)
+	bind =&gt; [sel@nl]
+[EL Fine]: sql: 2014-05-26 10:58:32.201--ServerSession(368074760)--Connection(861197352)--Thread(Thread[main,5,main])--SELECT EMAIL FROM USER WHERE (EMAIL = ?)
+	bind =&gt; [sel@nl]
+[EL Fine]: sql: 2014-05-26 10:58:32.202--ClientSession(114810878)--Connection(861197352)--Thread(Thread[main,5,main])--INSERT INTO USER (EMAIL) VALUES (?)
+	bind =&gt; [sel@nl]
+[EL Fine]: sql: 2014-05-26 10:58:32.205--ServerSession(368074760)--Connection(861197352)--Thread(Thread[main,5,main])--SELECT EMAIL FROM USER WHERE (EMAIL = ?)
+	bind =&gt; [buy@nl]
+[EL Fine]: sql: 2014-05-26 10:58:32.207--ServerSession(368074760)--Connection(861197352)--Thread(Thread[main,5,main])--SELECT EMAIL FROM USER WHERE (EMAIL = ?)
+	bind =&gt; [buy@nl]
+[EL Fine]: sql: 2014-05-26 10:58:32.209--ClientSession(114810878)--Connection(861197352)--Thread(Thread[main,5,main])--INSERT INTO USER (EMAIL) VALUES (?)
+	bind =&gt; [buy@nl]
+[EL Fine]: sql: 2014-05-26 10:58:32.212--ClientSession(2093226556)--Connection(861197352)--Thread(Thread[main,5,main])--INSERT INTO USER (EMAIL) VALUES (?)
+	bind =&gt; [sel@nl]
+[EL Fine]: sql: 2014-05-26 10:58:32.213--ClientSession(2093226556)--Thread(Thread[main,5,main])--SELECT 1
+[EL Warning]: 2014-05-26 10:58:32.214--UnitOfWork(587508066)--Thread(Thread[main,5,main])--Exception [EclipseLink-4002] (Eclipse Persistence Services - 2.5.0.v20130507-3faac2b): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Duplicate entry &apos;sel@nl&apos; for key &apos;PRIMARY&apos;
+Error Code: 1062
+Call: INSERT INTO USER (EMAIL) VALUES (?)
+	bind =&gt; [sel@nl]
+Query: InsertObjectQuery(auction.domain.User@2acd47cb)
+</system-out>
   </testcase>
 </testsuite>

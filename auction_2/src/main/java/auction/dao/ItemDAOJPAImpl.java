@@ -23,9 +23,9 @@ public class ItemDAOJPAImpl implements ItemDAO {
 
     @Override
     public void create(Item item) {
-        if (find(item.getId()) != null) {
-            throw new EntityExistsException();
-        }
+        // if (find(item.getId()) != null) {
+        //     throw new EntityExistsException();
+        // }
         items.getTransaction().begin();
         items.persist(item);
         items.getTransaction().commit();
@@ -33,10 +33,10 @@ public class ItemDAOJPAImpl implements ItemDAO {
 
     @Override
     public void edit(Item item) {
-        if (find(item.getId()) == null) {
-            throw new IllegalArgumentException();
-        }
-        items.persist(item);
+        // if (find(item.getId()) == null) {
+        //     throw new IllegalArgumentException();
+        // }
+        items.merge(item);
     }
 
 

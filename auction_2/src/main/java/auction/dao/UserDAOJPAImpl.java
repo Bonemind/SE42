@@ -40,7 +40,7 @@ public class UserDAOJPAImpl implements UserDAO {
         if (findByEmail(user.getEmail()) == null) {
             throw new IllegalArgumentException();
         }
-        users.persist(user);
+        users.merge(user);
     }
 
 
