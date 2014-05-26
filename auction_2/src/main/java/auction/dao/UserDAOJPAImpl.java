@@ -21,7 +21,7 @@ public class UserDAOJPAImpl implements UserDAO {
 
     @Override
     public int count() {
-        return (Integer) users.createNativeQuery("SELECT count(*) FROM User u")
+        return (Integer) users.createNativeQuery("SELECT count(1) FROM TableA")
                 .getSingleResult();  
     }
 
