@@ -1,6 +1,7 @@
 package auction.service;
 
 import auction.dao.CategoryDAOJPAImpl;
+import auction.domain.Bid;
 import org.junit.Ignore;
 import javax.persistence.*;
 import util.DatabaseCleaner;
@@ -8,6 +9,7 @@ import auction.domain.Category;
 import auction.domain.Item;
 import auction.domain.User;
 import java.util.Iterator;
+import nl.fontys.util.Money;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -129,5 +131,24 @@ public class ItemsFromSellerTest {
         it30.next();
         assertTrue(it30.hasNext());
 
+    }
+    
+    @Test
+    public void biDirectionalTest() {
+        User u1 = registrationMgr.registerUser("aa@aa.xx");
+        User u2 = registrationMgr.registerUser("bb@aa.xx");
+        CategoryDAOJPAImpl cda = new CategoryDAOJPAImpl();
+        Category cat = new Category("somedesc");
+        cda.create(cat);
+        Item offerItem = sellerMgr.offerItem(u2, cat, "AnItem");
+        Money m = new Money(100, "euro");
+        Money m2 = new Money(200, "euro");
+        offerItem.newBid(u2, m);
+        assertEquals(1, offerItem.getBids().size());
+        Bid bid1 = offerItem.getHighestBid();
+        offerItem.newBid(u2, m2);
+        assertEquals(2, offerItem.getBids().size());
+        Bid bid2 = offerItem.getHighestBid();
+        assertEquals(bid1.getItem(), offerItem);
     }
 }

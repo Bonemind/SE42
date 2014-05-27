@@ -27,6 +27,10 @@ public class Bid {
     @Column
     private Money amount;
     
+    @ManyToOne
+    @JoinColumn(nullable=false)
+    private Item item;
+    
     public Bid() {
     }
 
@@ -45,5 +49,12 @@ public class Bid {
 
     public Money getAmount() {
         return amount;
+    }
+    public void setItem(Item i) {
+        this.item = i;
+    }
+    
+    public Item getItem() {
+        return this.item;
     }
 }
