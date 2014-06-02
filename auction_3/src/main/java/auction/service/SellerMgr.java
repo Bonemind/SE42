@@ -5,13 +5,14 @@ import auction.dao.ItemDAOJPAImpl;
 import auction.domain.Category;
 import auction.domain.Item;
 import auction.domain.User;
+import javax.persistence.EntityManager;
 
 public class SellerMgr {
 
     private ItemDAO itemDAO;
     
-    public SellerMgr() {
-        itemDAO = new ItemDAOJPAImpl();
+    public SellerMgr(EntityManager em) {
+        itemDAO = new ItemDAOJPAImpl(em);
     }
 
     /**

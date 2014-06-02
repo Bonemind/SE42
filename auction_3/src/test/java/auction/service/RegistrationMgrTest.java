@@ -8,17 +8,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 import auction.domain.User;
+import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import util.DatabaseCleaner;
 
 public class RegistrationMgrTest {
 
     private RegistrationMgr registrationMgr;
-
+    EntityManager em = Persistence.createEntityManagerFactory("db").createEntityManager();
     @Before
     public void setUp() throws Exception {
         System.out.print("before reg");
-        registrationMgr = new RegistrationMgr();
+        registrationMgr = new RegistrationMgr(em);
         DatabaseCleaner dc = new DatabaseCleaner(Persistence.createEntityManagerFactory("db").createEntityManager());
         dc.clean();
     }

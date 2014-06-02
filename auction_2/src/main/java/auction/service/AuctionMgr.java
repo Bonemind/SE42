@@ -12,7 +12,6 @@ import java.util.List;
 public class AuctionMgr  {
 
     private ItemDAO itemDAO;
-    
     public AuctionMgr() {
         itemDAO = new ItemDAOJPAImpl();
     }

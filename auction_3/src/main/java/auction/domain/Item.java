@@ -1,5 +1,6 @@
 package auction.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import nl.fontys.util.Money;
 import javax.persistence.Id;
@@ -49,7 +50,7 @@ public class Item implements Comparable {
     @OneToOne
     private Bid highest;
     
-    @OneToMany(mappedBy="item")
+    @OneToMany(mappedBy="item", cascade = CascadeType.PERSIST)
     private List<Bid> bids;
 
     public Item() {
@@ -64,6 +65,7 @@ public class Item implements Comparable {
     public Item(User seller, Category category, String description) {
         this.category = category;
         this.description = description;
+        bids = new ArrayList<Bid>();
         seller.addItem(this);
     }
 
@@ -125,6 +127,7 @@ public class Item implements Comparable {
             return null;
         }
         highest = new Bid(buyer, amount);
+        System.out.println(bids + "HighedT");
         this.bids.add(highest);
         highest.setItem(this);
         return highest;

@@ -27,9 +27,9 @@ public class ItemsFromSellerTest {
 
     @Before
     public void setUp() throws Exception {
-        registrationMgr = new RegistrationMgr();
-        auctionMgr = new AuctionMgr();
-        sellerMgr = new SellerMgr();
+        registrationMgr = new RegistrationMgr(em);
+        auctionMgr = new AuctionMgr(em);
+        sellerMgr = new SellerMgr(em);
         new DatabaseCleaner(em).clean();
     }
 
@@ -70,7 +70,7 @@ public class ItemsFromSellerTest {
         assertEquals(1, user2.numberOfOfferdItems());
         Item item2 = sellerMgr.offerItem(user2, cat, omsch2);
         assertEquals(2, user2.numberOfOfferdItems());
-        registrationMgr = new RegistrationMgr();
+        registrationMgr = new RegistrationMgr(em);
         User user3 = registrationMgr.getUser(email);
         assertEquals(2, user3.numberOfOfferdItems());
 
