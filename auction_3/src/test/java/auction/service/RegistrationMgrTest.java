@@ -51,17 +51,23 @@ public class RegistrationMgrTest {
         List<User> users = registrationMgr.getUsers();
         assertEquals(0, users.size());
 
+        em.getTransaction().begin();
         User user1 = registrationMgr.registerUser("xxx8@yyy");
+        em.getTransaction().commit();
         users = registrationMgr.getUsers();
         assertEquals(1, users.size());
         assertSame(users.get(0), user1);
 
 
+        em.getTransaction().begin();
         User user2 = registrationMgr.registerUser("xxx9@yyy");
+        em.getTransaction().commit();
         users = registrationMgr.getUsers();
         assertEquals(2, users.size());
 
+        em.getTransaction().begin();
         registrationMgr.registerUser("abc");
+        em.getTransaction().commit();
         //geen nieuwe user toegevoegd, dus gedrag hetzelfde als hiervoor
         users = registrationMgr.getUsers();
         assertEquals(2, users.size());

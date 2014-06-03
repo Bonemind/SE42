@@ -63,25 +63,30 @@ public class SellerMgrTest {
         Category cat = new Category("cat1");
         CategoryDAOJPAImpl categories = new CategoryDAOJPAImpl();
         categories.create(cat);
+        em.getTransaction().commit();
         
         
             // revoke before bidding
+        em.getTransaction().begin();
         Item item1 = sellerMgr.offerItem(seller, cat, omsch);
         boolean res = sellerMgr.revokeItem(item1);
+        em.getTransaction().commit();
         assertTrue(res);
         int count = auctionMgr.findItemByDescription(omsch).size();
         assertEquals(0, count);
         
             // revoke after bid has been made
+        em.getTransaction().begin();
         Item item2 = sellerMgr.offerItem(seller, cat, omsch2);
         auctionMgr.newBid(item2, buyer, new Money(100, "Euro"));
+        em.getTransaction().commit();
+        em.getTransaction().begin();
         boolean res2 = sellerMgr.revokeItem(item2);
+        em.getTransaction().commit();
         assertFalse(res2);
         int count2 = auctionMgr.findItemByDescription(omsch2).size();
         assertEquals(1, count2);
         
-        
-        em.getTransaction().commit();
     }
 
 }

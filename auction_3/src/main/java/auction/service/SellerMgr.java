@@ -34,11 +34,12 @@ public class SellerMgr {
      *         false als er al geboden was op het item.
      */
     public boolean revokeItem(Item item) {
-        if (item.getHighestBid() == null) {
-            
+        if (item.getBids().size() == 0) {
+            System.out.println("deleted");
             itemDAO.remove(item);
             return true;
         }
+        System.out.println("NO!!!");
         return false;
     }
 }

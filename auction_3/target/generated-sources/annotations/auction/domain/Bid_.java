@@ -8,7 +8,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import nl.fontys.util.FontysTime;
 import nl.fontys.util.Money;
 
-@Generated(value="EclipseLink-2.5.0.v20130507-rNA", date="2014-05-27T13:26:48")
+@Generated(value="EclipseLink-2.5.0.v20130507-rNA", date="2014-06-03T11:53:51")
 @StaticMetamodel(Bid.class)
 public class Bid_ { 
 
