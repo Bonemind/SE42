@@ -25,6 +25,8 @@
         <module name="CalculatorService" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="CalculatorService" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>
-
