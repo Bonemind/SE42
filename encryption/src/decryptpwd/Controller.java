@@ -6,6 +6,7 @@ import javafx.scene.control.PasswordField;
 import org.controlsfx.dialog.Dialogs;
 import utils.Utils;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
@@ -63,7 +64,16 @@ public class Controller {
             cipher.init(Cipher.DECRYPT_MODE, key, parameterSpec);
 
             // Decrypt the file.
-            byte[] output = cipher.doFinal(ciphered);
+            byte[] output;
+            try {
+                output = cipher.doFinal(ciphered);
+            } catch (BadPaddingException ignored) {
+                Dialogs.create()
+                    .title("Password is invalid")
+                    .message("The password does not match the password with which the file was encrypted.")
+                    .showInformation();
+                return;
+            }
 
             // Write the file.
             Utils.writeToFile(outputFile, new String(output, "UTF-8"));
